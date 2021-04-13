@@ -36,3 +36,12 @@ Steps are involved to run the code.
 3. Download landmarks [Predictor](https://github.com/davisking/dlib-models/blob/master/shape_predictor_68_face_landmarks.dat.bz2)  
     - Extract that file and put it into the **Predictor** folder or directory.
 
+----------
+
+## Face Landmarks
+image show the face landmarks available in, dilb face landmark detector pre-trained network.
+
+<img src="/images/landmarks.jpg" alt="Landmarks Image">
+
+
+---------
