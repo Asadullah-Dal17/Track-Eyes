@@ -34,4 +34,5 @@ Steps are involved to run the code.
     for linux or Mac OS replace`pip` with  `pip3` and you are good to go... :wink:
 
 3. Download landmarks [Predictor](https://github.com/davisking/dlib-models/blob/master/shape_predictor_68_face_landmarks.dat.bz2)  
-    - Extract that file place this into the pr
+    - Extract that file and put it into the **Predictor** folder or directory.
+
