@@ -1,7 +1,6 @@
 import cv2 as cv 
 import numpy as np 
 import dlib
-
 # variables
 
 # colors 
@@ -20,6 +19,9 @@ detectFace= dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("Predictor/shape_predictor_68_face_landmarks.dat")
 
 # function
+def midpoint(pts1, pts2):
+    x, y = pts1
+    x1, y1 = pts2
 def faceDetector(image, Draw =True):
     pts1=(0,0)
     pts2=(0,0)
@@ -37,25 +39,21 @@ def faceDetector(image, Draw =True):
         # print(type(landmarks))
         if Draw ==True:
             cv.rectangle(image, pts1, pts2, (0,255,255), 1)
-            # if IDs ==1:
-                # cv.rectangle(image,pts1, pts2, (255,255,255), 3)
     # print(data)
     return image,face
-def facePoint(grayImage, image,face):
-    landmarks =predictor(grayImage, face)
+def facePoint(grayImage, image,face, Draw=False):
+    landmarks =predictor(grayImage, face,)
     pointsList = []
     for n in range(0,68):
         point = (landmarks.part(n).x, landmarks.part(n).y)
         pointsList.append(point)
-        cv.circle(image,point, 2, ORANGE, 2)
-    print(pointsList)
+        if Draw ==True:
+            cv.circle(image,point, 2, ORANGE, 2)
+    # print(pointsList)
     # print(point)
-    return image, pointsList
-# def BlinkingDetection(GrayImage,face ):
-    # landmarks = predictor(GrayImage, face)
-    print('working')
-    # x, y = landmarks.part[10].x, landmarks.part[10].y
-    # print(x, y)
+    return image,pointsList
+
+def blinkDetector(eyePoints):
 
 
 
