@@ -1,6 +1,5 @@
 import cv2 as cv 
 import numpy as np
-import dlib
 import Module as m 
 import time
 
@@ -14,14 +13,19 @@ staringTimer = time.time()
 while True:
     frameCounter += 1
     ret, frame= camera.read()
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     cv.imshow("image", frame)
-    image,ids, pts1, pts2, =m.faceDetector(frame, Draw=True)
-    # print (ids,pts1, pts2)
+    image,data =m.faceDetector(frame, Draw=True)
+    if len(data)>0:
+        m.BlinkingDetection(gray, data)
+    # if len(data) >0:
+        # print(data)
     seconds = time.time() - staringTimer
     # print(seconds)
     fps = frameCounter/seconds
     # print(fps)
-    cv.putText(frame, f'FPS: {round(fps, 2)}',(20,20),fonts, 2, (0,244,0),2 )
+    
+    cv.putText(frame, f'FPS: {round(fps, 2)}',(20,20),fonts, 1.5, m.MAGENTA,2 )
     cv.imshow("image", image)
     key =cv.waitKey(1)
     if key ==ord('q'):
