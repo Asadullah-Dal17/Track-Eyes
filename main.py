@@ -22,20 +22,23 @@ while True:
         # m.BlinkingDetection(gray, data)
         # print('detected')
         
-        image, PointLis =m.facePoint(gray, frame, data)
-        eyesPoints= PointLis[36:42]
-        BlinkRatio=m.blinkDetector(eyesPoints)
+        image, PointsList =m.facePoint(gray, frame, data)
+        eyesPoints= PointsList[36:42]
+        rEyePoints = PointsList[42:48]
+        RightEye =m.blinkDetector(PointsList[42:48])
+        LeftEye=m.blinkDetector(eyesPoints)
+        BlinkRatio = (RightEye+LeftEye)/2
         # print(BlinkRatio)
-        if BlinkRatio<=3:
-            print("no Blink")
-        elif BlinkRatio>3:
-            print("Eyes Blinked")
-        # cv.circle(frame, bPoints[0], 3, m.GREEN, 2)
-        # cv.circle(frame, topMid, 3, m.YELLOW, 2)
-        # cv.circle(frame, bottomMid, 3, m.CYAN, 2)
-        # cv.circle(frame, bPoints[1], 3, m.RED, 2)
-        # cv.circle(frame, eyesPoints[0], 4, m.BLUE, 2)
-        # cv.circle(frame, eyesPoints[3], 4, m.BLUE, 2)
+        cv.circle(frame, (40, 40), int(BlinkRatio*3), m.LIGHT_BLUE, 3)
+        # cv.line(frame,(40, 70), (40,int(70-(BlinkRatio*6))),m.ORANGE,10)
+        if BlinkRatio>=4:
+            cv.putText(frame, f'Blink',(50, 70), cv.FONT_HERSHEY_COMPLEX, 0.9, m.PINK, 2 )
+        # cv.circle(frame, rEyePoints[0], 3, m.GREEN, 2)
+        # cv.circle(frame, rEyePoints[1], 3, m.YELLOW, 2)
+        # 
+        # cv.circle(frame, rEyePoints[3], 3, m.RED, 2)
+        # cv.circle(frame, rEyePoints[4], 4, m.BLUE, 2)
+        # cv.circle(frame, rEyePoints[5], 4, m.LIGHT_BLUE, 2)
         # for center in eyesPoints:
             # cv.circle(frame, center,3, m.ORANGE, 1)
         # cv.circle(frame, PointLis[0], 2,m.LIGHT_BLUE, 1)
