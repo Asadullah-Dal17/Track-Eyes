@@ -10,5 +10,5 @@ TODO
 - [ ] Extract Eyes using Masking Techniques 
 - [ ] Apply Thresholding find White and Black pixels 
 - [ ] find out the ratio of white and black pixels and estimate the position on the bases of ratio.
-- [ ] improve the visual appearance information 
+- [ ] improve the visual appearance of information 
 
