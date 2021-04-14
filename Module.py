@@ -99,8 +99,16 @@ def EyesTracking(image, RightEye, LeftEye, Draw =True):
     cv.fillPoly(mask, [LeftPolly], ORANGE)
 
     # TODO Extract the eyes form frame,
+    # find the mix and min x and y values of Eyes Positions 
+    # print(RightEye[0][0])
+    valueX =( max(RightEye, key=lambda item: item[0]))[0]
+    valueY = (max(RightEye, key=lambda item: item[1]))[1]
+    print(RightEye, '    ', valueX, valueY)
+    
+
     # TODO apply Thereshold
     # TODO count the WHITE Pixel in the image Eyes part and decide where eyes are looking
     # TODO Improve the Visual of Information about Eyes 
+
     return mask
 

@@ -7,7 +7,7 @@ import dlib
 # variables
 fonts = cv.FONT_HERSHEY_PLAIN
 frameCounter = 0
-capID=0 
+capID=1 
 # objects  
 camera = cv.VideoCapture(capID)
 # staring time 
