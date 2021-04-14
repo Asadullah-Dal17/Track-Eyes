@@ -101,9 +101,11 @@ def EyesTracking(image, RightEye, LeftEye, Draw =True):
     # TODO Extract the eyes form frame,
     # find the mix and min x and y values of Eyes Positions 
     # print(RightEye[0][0])
-    valueX =( max(RightEye, key=lambda item: item[0]))[0]
-    valueY = (max(RightEye, key=lambda item: item[1]))[1]
-    print(RightEye, '    ', valueX, valueY)
+    maxX =( max(RightEye, key=lambda item: item[0]))[0]
+    minX =( min(RightEye, key=lambda item: item[0]))[0]
+    maxY = (max(RightEye, key=lambda item: item[1]))[1]
+    minY = (min(RightEye, key=lambda item: item[1]))[1]
+    print(RightEye, '    ', minX, minY, maxX, maxY)
     
 
     # TODO apply Thereshold
