@@ -23,27 +23,30 @@ while True:
         # print('detected')
         
         image, PointsList =m.facePoint(gray, frame, data)
-        eyesPoints= PointsList[36:42]
-        rEyePoints = PointsList[42:48]
-        # ArryN = np.array(rEyePoints, dtype=np.int32)
+        LeftEyeList= PointsList[36:42]
+        RightEyeList = PointsList[42:48]
+        # ArryN = np.array(RightEyeList, dtype=np.int32)
         # print(ArryN)
         # mask = np.zeros(frame.shape, dtype=np.uint8)
         # cv.fillPoly(mask, [ArryN], (0,255,255))
         RightEye =m.blinkDetector(PointsList[42:48])
-        LeftEye=m.blinkDetector(eyesPoints)
+        mask = m.EyesTracking(frame, LeftEyeList, RightEyeList)
+        if mask is not None:
+            cv.imshow('mask', mask)
+        LeftEye=m.blinkDetector(LeftEyeList)
         BlinkRatio = (RightEye+LeftEye)/2
         # print(BlinkRatio)
         cv.circle(frame, (40, 40), int(BlinkRatio*3), m.LIGHT_BLUE, 3)
         # cv.line(frame,(40, 70), (40,int(70-(BlinkRatio*6))),m.ORANGE,10)
         if BlinkRatio>=4:
             cv.putText(frame, f'Blink',(50, 70), cv.FONT_HERSHEY_COMPLEX, 0.9, m.PINK, 2 )
-        # cv.circle(frame, rEyePoints[0], 3, m.GREEN, 2)
-        # cv.circle(frame, rEyePoints[1], 3, m.YELLOW, 2)
+        # cv.circle(frame, RightEyeList[0], 3, m.GREEN, 2)
+        # cv.circle(frame, RightEyeList[1], 3, m.YELLOW, 2)
         # 
-        # cv.circle(frame, rEyePoints[3], 3, m.RED, 2)
-        # cv.circle(frame, rEyePoints[4], 4, m.BLUE, 2)
-        # cv.circle(frame, rEyePoints[5], 4, m.LIGHT_BLUE, 2)
-        # for center in eyesPoints:
+        # cv.circle(frame, RightEyeList[3], 3, m.RED, 2)
+        # cv.circle(frame, RightEyeList[4], 4, m.BLUE, 2)
+        # cv.circle(frame, RightEyeList[5], 4, m.LIGHT_BLUE, 2)
+        # for center in LeftEyeList:
             # cv.circle(frame, center,3, m.ORANGE, 1)
         # cv.circle(frame, PointLis[0], 2,m.LIGHT_BLUE, 1)
 
@@ -53,7 +56,7 @@ while True:
     # print(fps)
     cv.putText(frame, f'FPS: {round(fps, 2)}',(20,20),fonts, 1.5, m.MAGENTA,2 )
     cv.imshow("image", image)
-    cv.imshow('mask', mask)
+    
     key =cv.waitKey(1)
     if key ==ord('q'):
         break
