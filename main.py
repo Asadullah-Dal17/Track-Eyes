@@ -25,6 +25,10 @@ while True:
         image, PointsList =m.facePoint(gray, frame, data)
         eyesPoints= PointsList[36:42]
         rEyePoints = PointsList[42:48]
+        # ArryN = np.array(rEyePoints, dtype=np.int32)
+        # print(ArryN)
+        # mask = np.zeros(frame.shape, dtype=np.uint8)
+        # cv.fillPoly(mask, [ArryN], (0,255,255))
         RightEye =m.blinkDetector(PointsList[42:48])
         LeftEye=m.blinkDetector(eyesPoints)
         BlinkRatio = (RightEye+LeftEye)/2
@@ -49,6 +53,7 @@ while True:
     # print(fps)
     cv.putText(frame, f'FPS: {round(fps, 2)}',(20,20),fonts, 1.5, m.MAGENTA,2 )
     cv.imshow("image", image)
+    cv.imshow('mask', mask)
     key =cv.waitKey(1)
     if key ==ord('q'):
         break
