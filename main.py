@@ -7,7 +7,7 @@ import dlib
 # variables
 fonts = cv.FONT_HERSHEY_PLAIN
 frameCounter = 0
-capID=1 
+capID=0
 # objects  
 camera = cv.VideoCapture(capID)
 # staring time 
@@ -30,9 +30,10 @@ while True:
         # mask = np.zeros(frame.shape, dtype=np.uint8)
         # cv.fillPoly(mask, [ArryN], (0,255,255))
         RightEye =m.blinkDetector(PointsList[42:48])
-        mask = m.EyesTracking(frame, LeftEyeList, RightEyeList)
+        mask , RightCropd= m.EyesTracking(frame, LeftEyeList)
         if mask is not None:
             cv.imshow('mask', mask)
+            cv.imshow('Right', RightCropd)
         LeftEye=m.blinkDetector(LeftEyeList)
         BlinkRatio = (RightEye+LeftEye)/2
         # print(BlinkRatio)

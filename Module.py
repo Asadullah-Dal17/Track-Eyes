@@ -86,31 +86,37 @@ def blinkDetector(eyePoints):
     # return top, bottom,topMid, bottomMid 
     return blinkRatio
 
-def EyesTracking(image, RightEye, LeftEye, Draw =True):
-    dim = image.shape 
+def EyesTracking(image, EyesPoints, Draw =True):
+    gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+    dim = gray.shape 
     mask = np.zeros(dim, dtype=np.uint8)
     # print('noting mask')
     # Drawing Right on the mask 
-    RightPolly = np.array(RightEye, dtype=np.int32)
-    cv.fillPoly(mask, [RightPolly], WHITE)
+    RightPolly = np.array(EyesPoints, dtype=np.int32)
 
-    # Drawing Left Eye on the mask
-    LeftPolly = np.array(LeftEye, dtype=np.int32)
-    cv.fillPoly(mask, [LeftPolly], ORANGE)
+    # Fill the Region of Eye on the mask
+    cv.fillPoly(mask, [RightPolly], 255)
 
+    # Extrating the Eyes from the image using and operation 
+    eye = cv.bitwise_and(gray, gray, mask=mask)
     # TODO Extract the eyes form frame,
     # find the mix and min x and y values of Eyes Positions 
-    # print(RightEye[0][0])
-    maxX =( max(RightEye, key=lambda item: item[0]))[0]
-    minX =( min(RightEye, key=lambda item: item[0]))[0]
-    maxY = (max(RightEye, key=lambda item: item[1]))[1]
-    minY = (min(RightEye, key=lambda item: item[1]))[1]
-    print(RightEye, '    ', minX, minY, maxX, maxY)
+    # print(EyesPoints[0][0])
+    maxX =( max(EyesPoints, key=lambda item: item[0]))[0]
+    minX =( min(EyesPoints, key=lambda item: item[0]))[0]
+    maxY = (max(EyesPoints, key=lambda item: item[1]))[1]
+    minY = (min(EyesPoints, key=lambda item: item[1]))[1]
+    # print(EyesPoints, '    ', minX, minY, maxX, maxY)
     
+    # Croping Eye from the frame
+    cropedEye = eye[minY:maxY, minX:maxX]
 
     # TODO apply Thereshold
+
+    # Apply Threshold to the Eyes inorder to Extract White and Black pixel
+    _, threshEye = cv.threshold(cropedEye,100,255, cv.ADAPTIVE_THRESH_GAUSSIAN_C)
     # TODO count the WHITE Pixel in the image Eyes part and decide where eyes are looking
     # TODO Improve the Visual of Information about Eyes 
 
-    return mask
+    return mask, threshEye
 
