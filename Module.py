@@ -17,6 +17,8 @@ ORANGE = (0,69,255)
 GREEN =(0,255,0)
 BLUE = (255, 0, 0)
 RED = (0, 0, 255)
+WHITE = (255,255, 255)
+BLACK= (0,0,0)
 # objects 
 detectFace= dlib.get_frontal_face_detector()
 # landmarks detector  
@@ -83,3 +85,22 @@ def blinkDetector(eyePoints):
     # print(Vertical, '   ', Horizontal)
     # return top, bottom,topMid, bottomMid 
     return blinkRatio
+
+def EyesTracking(image, RightEye, LeftEye, Draw =True):
+    dim = image.shape 
+    mask = np.zeros(dim, dtype=np.uint8)
+    # print('noting mask')
+    # Drawing Right on the mask 
+    RightPolly = np.array(RightEye, dtype=np.int32)
+    cv.fillPoly(mask, [RightPolly], WHITE)
+
+    # Drawing Left Eye on the mask
+    LeftPolly = np.array(LeftEye, dtype=np.int32)
+    cv.fillPoly(mask, [LeftPolly], ORANGE)
+
+    # TODO Extract the eyes form frame,
+    # TODO apply Thereshold
+    # TODO count the WHITE Pixel in the image Eyes part and decide where eyes are looking
+    # TODO Improve the Visual of Information about Eyes 
+    return mask
+
