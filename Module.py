@@ -16,7 +16,7 @@ PINK = (147, 20, 255)
 ORANGE = (0, 69, 255)
 GREEN = (0, 255, 0)
 LIGHT_GREEN = (0, 255, 13)
-LIGHT_CYAN = (0, 204, 255)
+LIGHT_CYAN = (255, 204, 0)
 BLUE = (255, 0, 0)
 RED = (0, 0, 255)
 WHITE = (255, 255, 255)
@@ -158,13 +158,13 @@ def Position(ValuesList):
     color = [WHITE, BLACK]
     if maxIndex == 0:
         posEye = "Right"
-        color = [YELLOW, LIGHT_BLUE]
+        color = [YELLOW, BLACK]
     elif maxIndex == 1:
         posEye = "Center"
         color = [LIGHT_GREEN, MAGENTA]
     elif maxIndex == 2:
         posEye = "Left"
-        color = [LIGHT_CYAN, LIGHT_RED]
+        color = [LIGHT_CYAN, BLACK]
     else:
         posEye = "Eye Closed"
         color = [BLACK, WHITE]
