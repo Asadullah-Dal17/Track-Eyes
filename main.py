@@ -10,6 +10,10 @@ frameCounter = 0
 capID = 0
 # objects
 camera = cv.VideoCapture(capID)
+# Define the codec and create VideoWriter object
+fourcc = cv.VideoWriter_fourcc(*'XVID')
+Recoder = cv.VideoWriter('output.mp4', fourcc, 15.0, (640, 480))
+
 # staring time
 staringTimer = time.time()
 while True:
@@ -21,7 +25,6 @@ while True:
     if data is not None:
         # m.BlinkingDetection(gray, data)
         # print('detected')
-
         image, PointsList = m.facePoint(gray, frame, data)
         RightEyeList = PointsList[36:42]
         LeftEyeList = PointsList[42:48]
@@ -32,12 +35,14 @@ while True:
         RightEye = m.blinkDetector(PointsList[42:48])
         mask, RightCropd, EyePosition = m.EyesTracking(frame, RightEyeList)
         mask2, LeftCroped, LeftEyePos = m.EyesTracking(frame, LeftEyeList)
+        CurrentPos, color = m.Position(LeftEyePos)
         indictor = np.zeros((200, 200, 3), dtype=np.uint8)
-
+        indictor[:] = color[0]
+        cv.line(frame, (30, 90), (120, 90), color[1], 40)
         if EyePosition is not None:
-
-            cv.putText(frame, f"Position: {m.Position(LeftEyePos)}",
-                       (100, 100), m.fonts, 0.5, m.GREEN, 2)
+            print(CurrentPos)
+            cv.putText(frame, f"P: {CurrentPos}",
+                       (35, 95), m.fonts, 0.6, color[0], 2)
             # # print(EyePosition, EyePosition.index(max(EyePosition)))
             # if EyePosition.index(max(EyePosition)) == 0:
             #     print("Right")
@@ -46,8 +51,9 @@ while True:
             # elif EyePosition.index(max(EyePosition)) == 2:
             #     print('Left')
 
-        if mask is not None:
-            cv.imshow('mask', mask)
+        if mask2 is not None:
+            # cv.imshow('mask2', mask2)
+            # cv.imshow("mask", mask)
             cv.imshow('Right', RightCropd)
         LeftEye = m.blinkDetector(LeftEyeList)
         BlinkRatio = (RightEye+LeftEye)/2
@@ -74,9 +80,12 @@ while True:
     cv.putText(frame, f'FPS: {round(fps, 2)}',
                (20, 20), fonts, 1.5, m.MAGENTA, 2)
     cv.imshow("image", image)
+    # cv.imshow('Indicator', indictor)
+    Recoder.write(frame)
 
     key = cv.waitKey(1)
     if key == ord('q'):
         break
 cv.destroyAllWindows()
+Recoder.release()
 camera.release()
