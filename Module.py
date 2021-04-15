@@ -161,7 +161,7 @@ def Position(ValuesList):
         color = [YELLOW, BLACK]
     elif maxIndex == 1:
         posEye = "Center"
-        color = [LIGHT_GREEN, MAGENTA]
+        color = [BLACK, MAGENTA]
     elif maxIndex == 2:
         posEye = "Left"
         color = [LIGHT_CYAN, BLACK]
