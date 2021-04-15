@@ -42,7 +42,7 @@ while True:
         indictor[:] = color[0]
         cv.line(frame, (30, 90), (100, 90), color[1], 30)
         if EyePosition is not None:
-            print(CurrentPos)
+            # print(CurrentPos)
             cv.putText(frame, f"{CurrentPos}",
                        (35, 95), m.fonts, 0.6, color[0], 2)
         if mask2 is not None:
