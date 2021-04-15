@@ -145,3 +145,17 @@ def EyesTracking(image, EyesPoints, Draw=True):
     #     EyePosition = 'Closed'
 
     return mask, threshEye, EyePosition
+
+
+def Position(ValuesList):
+
+    maxIndex = ValuesList.index(max(ValuesList))
+
+    if maxIndex == 0:
+        return "Right"
+    elif maxIndex == 1:
+        return "Center"
+    elif maxIndex == 2:
+        return "Left"
+    else:
+        return "Eye Closed"

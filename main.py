@@ -36,15 +36,15 @@ while True:
 
         if EyePosition is not None:
 
-            cv.putText(frame, f"Position: {EyePosition}",
+            cv.putText(frame, f"Position: {m.Position(LeftEyePos)}",
                        (100, 100), m.fonts, 0.5, m.GREEN, 2)
-            # print(EyePosition, EyePosition.index(max(EyePosition)))
-            if EyePosition.index(max(EyePosition)) == 0:
-                print("Right")
-            elif EyePosition.index(max(EyePosition)) == 1:
-                print("Center")
-            elif EyePosition.index(max(EyePosition)) == 2:
-                print('Left')
+            # # print(EyePosition, EyePosition.index(max(EyePosition)))
+            # if EyePosition.index(max(EyePosition)) == 0:
+            #     print("Right")
+            # elif EyePosition.index(max(EyePosition)) == 1:
+            #     print("Center")
+            # elif EyePosition.index(max(EyePosition)) == 2:
+            #     print('Left')
 
         if mask is not None:
             cv.imshow('mask', mask)
